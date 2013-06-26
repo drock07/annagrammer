@@ -20,7 +20,7 @@ function watchDocument(docref, OnUpdate) {
     setTimeout(function() {
       watchDocument(docref, OnUpdate);
     }, timeout);
-  }, anagrammer.Error);
+  }, Anagrammer.Error);
 }
 
 function initDocument() {
@@ -34,7 +34,7 @@ function initDocument() {
     yjclient.ensureRegistration(function() {
       yjclient.syncRealtime();
       _loadDocument();
-    }, anagrammer.Error);
+    }, Anagrammer.Error);
   }
 }
 
@@ -57,16 +57,16 @@ function getDocumentReference() {
 function _loadDocument() {
   if (hasDocument()) {
     myDocId = getDocumentReference();
-    documentApi.get(myDocId, anagrammer.ReceiveUpdate);
-    watchDocument(myDocId, anagrammer.ReceiveUpdate);
+    documentApi.get(myDocId, Anagrammer.ReceiveUpdate);
+    watchDocument(myDocId, Anagrammer.ReceiveUpdate);
   } else {
     documentApi.create(function(d) {
       myDocId = d.Document;
       location.hash = "#/docId/" + myDocId;
-      documentApi.update(myDocId, anagrammer.Replace, anagrammer.InitialDocument(), function() {
-        documentApi.get(myDocId, anagrammer.DocumentCreated);
+      documentApi.update(myDocId, Anagrammer.Replace, Anagrammer.InitialDocument(), function() {
+        documentApi.get(myDocId, Anagrammer.DocumentCreated);
       });
-      watchDocument(myDocId, anagrammer.ReceiveUpdate);
+      watchDocument(myDocId, Anagrammer.ReceiveUpdate);
     }, function(e) {
       alert("error" + e);
     });

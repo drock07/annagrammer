@@ -1,9 +1,8 @@
 //////////////////////////////
 ///// Application Code ///////
 //////////////////////////////
-var wordnik;
 
-function Anagrammer() {
+var Anagrammer = (function() {
 
   /////////////////////////////////
   //        Member fields        //
@@ -12,7 +11,7 @@ function Anagrammer() {
       word, 
       wrd_arr, 
       curScore = 0,
-      // wordnik,
+       wordnik,
       myDoc = {},
 
       // constants
@@ -230,15 +229,6 @@ function Anagrammer() {
     return {
       score: 0
     };
-
-    // var initialLife = [];
-    // for (i = 0; i < numPlayers; i++) {
-    //   initialLife.push(20);
-    // }
-
-    // return {
-    //     life: initialLife
-    //    };
   }
 
   this.DocumentCreated = function(doc) {
@@ -313,7 +303,7 @@ function Anagrammer() {
   /////////////////////////////////
 
   init();
-}
+})();
 
 
 TwoPlus.ready(function() {
@@ -333,7 +323,7 @@ TwoPlus.ready(function() {
 
   
 
-  anagrammer = new Anagrammer();
+  //anagrammer = new Anagrammer();
 
   //initDocument();
   // if (hasDocument()) {
