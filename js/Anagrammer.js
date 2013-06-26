@@ -10,7 +10,6 @@ function Anagrammer() {
   var obj = this,
       word, 
       wrd_arr, 
-      curScore = 0,
       wordnik,
       myDoc = {},
 
@@ -40,7 +39,7 @@ function Anagrammer() {
       $("#wordList").sortable({
           update: function(event, ui) {
             var result_word = "";
-            $("#wordList .letter-box").each(function() {
+            $("#wordList .angrm-letter-box").each(function() {
               result_word += $(this).html();
             });
             if(result_word == word) {
@@ -60,7 +59,7 @@ function Anagrammer() {
     },
 
      goToPage = function(pageTitle){
-        $(".app-page").hide();
+        $(".angrm-app-page").hide();
         $("#" + pageTitle).show();
       },
 
@@ -68,7 +67,7 @@ function Anagrammer() {
         $("#wordList").hide();
         $("#controlsBox").hide();
 
-        $("#wordBox").append($("<button />").addClass("start-button").html("start"));
+        $("#wordBox").append($("<button />").addClass("angrm-start-button").html("start"));
 
         currentTime = (TIMER_DURATION_IN_SECS - 1) * 100;
 
@@ -78,7 +77,7 @@ function Anagrammer() {
       },
 
       startGame = function() {
-        $(".start-button").remove();
+        $(".angrm-start-button").remove();
 
         $("#wordList").show();
         $("#controlsBox").show();
@@ -109,17 +108,17 @@ function Anagrammer() {
 
           console.log(word);
 
-          $(".letter-box").remove();
+          $(".angrm-letter-box").remove();
 
           for(var i = 0; i < word.length; i++){
-            $("#wordList").append($("<li />").addClass("letter-box").html(wrd_arr[i]));
+            $("#wordList").append($("<li />").addClass("angrm-letter-box").html(wrd_arr[i]));
           }
 
           $("#faderWhite").hide();
 
           var result_word = "";
           while(true) {
-            $("#wordList .letter-box").each(function() {
+            $("#wordList .angrm-letter-box").each(function() {
               result_word += $(this).html();
             });
 
@@ -170,7 +169,7 @@ function Anagrammer() {
 
       __shuffleLetters = function() {
         
-        var allElems = $(".letter-box").get(),
+        var allElems = $(".angrm-letter-box").get(),
             getRandom = function(max) {
                 return Math.floor(Math.random() * max);
             },
@@ -181,7 +180,7 @@ function Anagrammer() {
                 return randEl;
            });
  
-        $(".letter-box").each(function(i){
+        $(".angrm-letter-box").each(function(i){
             $(this).replaceWith($(shuffled[i]));
         });
 
@@ -287,20 +286,16 @@ function Anagrammer() {
   //       Event listeners       //
   /////////////////////////////////
 
-  $(".next-button").live("click", function() {
-    resetWord();
-  });
-
-  $(".start-button").live("click", function() {
+  $(".angrm-start-button").live("click", function() {
     startGame();
   });
 
-  $(".skip-button").live("click", function() {
+  $(".angrm-skip-button").live("click", function() {
     __addToScore(-10);
     resetWord();
   });
 
-  $(".shuffle-button").live("click", __shuffleLetters);
+  $(".angrm-shuffle-button").live("click", __shuffleLetters);
 
   /////////////////////////////////
   //         Initialize          //
