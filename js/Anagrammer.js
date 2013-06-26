@@ -35,13 +35,15 @@ $("document").ready(function(){
 
         init = function() {
 
-          goToPage("game_page");
+          //goToPage("gamePage");
+          goToPage("settingsPage");
+          //goToPage("welcomePage");
 
           // initialize the sortable word_list
-          $("#word_list").sortable({
+          $("#wordList").sortable({
               update: function(event, ui) {
                 var result_word = "";
-                $("#word_list .letter-box").each(function() {
+                $("#wordList .letter-box").each(function() {
                   result_word += $(this).html();
                 });
                 if(result_word == word) {
@@ -62,18 +64,18 @@ $("document").ready(function(){
 
         goToPage = function(pageTitle){
           $(".app-page").hide();
-          //$("#" + pageTitle).show();
+          $("#" + pageTitle).show();
         },
 
         resetGame = function() {
-          $("#word_list").hide();
-          $("#controls-box").hide();
+          $("#wordList").hide();
+          $("#controlsBox").hide();
 
-          $("#word-box").append($("<button />").addClass("start-button").html("start"));
+          $("#wordBox").append($("<button />").addClass("start-button").html("start"));
 
           currentTime = (TIMER_DURATION_IN_SECS - 1) * 100;
 
-          $stopwatch = $('#timer_display').css("color", "black");
+          $stopwatch = $('#timerDisplay').css("color", "black");
           $stopwatch.html(__formatTime(TIMER_DURATION_IN_SECS * 100));
           timer = $.timer(updateTimer, incrementTime, false);
         },
@@ -81,10 +83,10 @@ $("document").ready(function(){
         startGame = function() {
           $(".start-button").remove();
 
-          $("#word_list").show();
-          $("#controls-box").show();
+          $("#wordList").show();
+          $("#controlsBox").show();
 
-          $("#fader-white").css({
+          $("#faderWhite").css({
             "width" : "106px",
             "height" : "59px"
           });
@@ -113,14 +115,14 @@ $("document").ready(function(){
             $(".letter-box").remove();
 
             for(var i = 0; i < word.length; i++){
-              $("#word_list").append($("<li />").addClass("letter-box").html(wrd_arr[i]));
+              $("#wordList").append($("<li />").addClass("letter-box").html(wrd_arr[i]));
             }
 
-            $("#fader-white").hide();
+            $("#faderWhite").hide();
 
             var result_word = "";
             while(true) {
-              $("#word_list .letter-box").each(function() {
+              $("#wordList .letter-box").each(function() {
                 result_word += $(this).html();
               });
 
@@ -151,10 +153,10 @@ $("document").ready(function(){
         },
 
         countdownUpdate = function() {
-          $("#fader-white").html("<div>" + (countdownTime / 100) + "</div>").show();
+          $("#faderWhite").html("<div>" + (countdownTime / 100) + "</div>").show();
           if (countdownTime == 0) {
               countdownTimer.stop();
-              $("#fader-white").html("<div>Go!</div>").show();
+              $("#faderWhite").html("<div>Go!</div>").show();
               setTimeout(function() {
                 resetWord();
                 timer.play();
@@ -186,11 +188,11 @@ $("document").ready(function(){
               $(this).replaceWith($(shuffled[i]));
           });
 
-          $("#word_list").sortable("refresh");
+          $("#wordList").sortable("refresh");
         },
 
         __countdown = function(count) {
-          $("#fader-white").html("<div>" + count + "</div>").show();
+          $("#faderWhite").html("<div>" + count + "</div>").show();
           countdownTime = (count - 1) * 100;
           countdownTimer = $.timer(countdownUpdate, 1000, true);
               
@@ -204,7 +206,7 @@ $("document").ready(function(){
         },
 
         __updateScore = function() {
-          $("#user_score_display").html("Score: " + myDoc.score);
+          $("#userScoreDisplay").html("Score: " + myDoc.score);
         },
 
         __pad = function(number, length) {
