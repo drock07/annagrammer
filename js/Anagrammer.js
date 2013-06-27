@@ -31,9 +31,9 @@ function Anagrammer() {
 
   var init = function() {
 
-      goToPage("gamePage");
-      //goToPage("settingsPage");
-      //goToPage("welcomePage");
+      //goToPage("gamePage");
+      goToPage("testPage");
+      //goToPage("startPage");
 
       // initialize the sortable wordList
       $("#wordList").sortable({
@@ -96,10 +96,14 @@ function Anagrammer() {
       },
 
       fetchNewWord = function(cb) {
-        wordnik.words.getRandomWord({minCorpusCount:100000, minLength: 4, maxLength: 6, excludePartOfSpeech: "given-name, family-name"}, function(data) {
-          word = data.word.toLowerCase();
-          wrd_arr = word.split('');
-          cb();
+        wordnik.words.getRandomWords({minCorpusCount:100000, minLength: 4, maxLength: 6, includePartOfSpeech: "noun, verb, adjective, adverb", excludePartOfSpeech: "proper-noun, proper-noun-plural, noun-posessive, proper-noun-posessive", limit: 10}, function(data) {
+          for (var i = 0; i < 10; i++) {
+            $("#testPage").append("<p>" + data[i].word + "</p>");
+          }      
+          //word = data.word.toLowerCase();
+          //wrd_arr = word.split('');
+          if(typeof cb === "function")
+            cb();
         });
       },
 
@@ -281,6 +285,10 @@ function Anagrammer() {
   //   myDoc.life[player] += amount;
   //   documentApi.update(myDocId, Replace, myDoc, ReceiveUpdate);
   // }
+
+  this.Test = function() {
+    fetchNewWord();
+  }
 
   /////////////////////////////////
   //       Event listeners       //
